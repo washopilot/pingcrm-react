@@ -39,20 +39,18 @@
   // "shutdownAction": "none",
 
   // Uncomment the next line to run commands after the container is created.
-  "postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && sed -i 's/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions laravel)/' ~/.zshrc",
+  "postCreateCommand": "chown -R 1000:1000 /var/www/html 2>/dev/null || true && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && sed -i 's/plugins=(git)/plugins=(git zsh-syntax-highlighting zsh-autosuggestions laravel)/' ~/.zshrc && pnpm completion zsh > ~/completion-for-pnpm.zsh && echo 'source ~/completion-for-pnpm.zsh' >> ~/.zshrc",
 
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "extensions": [
         "dsznajder.es7-react-js-snippets",
-        "mikestead.dotenv",
         "onecentlin.laravel-extension-pack",
         "VisualStudioExptTeam.vscodeintellicode",
         "esbenp.prettier-vscode",
         "yy0931.vscode-sqlite3-editor",
         "redhat.vscode-yaml",
-        "WallabyJs.console-ninja",
         "bradlc.vscode-tailwindcss",
         "MehediDracula.php-namespace-resolver",
         "hakcorp.php-awesome-snippets",

@@ -52,17 +52,10 @@ RUN docker-php-ext-install \
   docker-php-ext-install -j$(nproc) gd && \
   rm -rf /tmp/*
 
-# 5. install nvm, node, and npm
-ENV NVM_DIR /usr/local/nvm
-RUN mkdir -p $NVM_DIR && \
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash && \
-  . $NVM_DIR/nvm.sh && \
-  nvm install 20.16 && \
-  nvm use 20.16 && \
-  nvm alias default 20.16 && \
-  ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/node" /usr/local/bin/node && \
-  ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/npm" /usr/local/bin/npm && \
-  ln -s "$NVM_DIR/versions/node/$(nvm version)/bin/npx" /usr/local/bin/npx
+# 5. install node, and pnpm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+  apt-get install -y nodejs
+RUN npm install -g pnpm
 
 # 5. composer
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
@@ -76,11 +69,12 @@ RUN useradd -G www-data,root -u $uid -d /home/devuser devuser && \
   chown -R devuser:devuser /home/devuser
 
 USER devuser
+ENV PNPM_STORE_DIR=${HOME}/.pnpm-store
 
 CMD \
-  # npm ci -d && npm run prod && \
+  # pnpm install --frozen-lockfile && rm -rf public/build && pnpm run build && \
   # composer install --prefer-dist --no-progress --no-suggest && \
   # composer clear-cache && \
-  # rm public/storage && \
+  # rm -f public/storage && \
   # php artisan storage:link && \
   apache2-foreground
