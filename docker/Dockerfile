@@ -72,7 +72,7 @@ USER devuser
 ENV PNPM_STORE_DIR=${HOME}/.pnpm-store
 
 CMD \
-  # pnpm install --frozen-lockfile && rm -rf public/build && pnpm run build && \
+  # pnpm install --frozen-lockfile && rm -rf public/build && pnpm run prod && \
   # composer install --prefer-dist --no-progress --no-suggest && \
   # composer clear-cache && \
   # rm -f public/storage && \
